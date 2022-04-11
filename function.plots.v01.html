@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plots v.01</title>
+</head>
+<body>
+    <h1 style="font-family:Sans-Serif;"> For Loops, Number Generation, and Function Plots v.01</h1>
+    <canvas id="myCanvas" width="750px" height="200px"  style="border: 1px solid gray;"></canvas>
+
+    <script>
+        var sales = [0,  50, 74, 31, 47, 25, 30, 22, 75, 99, 45, 100];
+        var myArray = [];
+
+        const pi = Math.PI; // this allows me to calculate Pi once, and store it in a "const"
+
+        // SCOPE: var, let, and const are variables with different "scopes"
+            // var is a global variable, so it can be accessed anywhere in your program.
+            // let is a local variable, and can only be accessed inside the BLOCK of code you're using it in (ex: squiggly brackets)
+            // const is also a variable but is a constant, so it does not change.
+        for (let i =0; i< 100; i++) {
+            //myArray.push(i)
+            myArray.push((1.33 *i) + 0);
+    }
+
+    console.log(myArray);
+
+    graph(myArray);
+
+    function graph(list) {
+            //We want out graph() fucntion to accomplis this stuff:
+                // 1. scalle all of our array values between the X- and Y- dimensions of our canvas
+                // 2. graph the curve between array values onto our <canvas>, no matter what its dimensions are, how many array values we have, or how low or high the array values are
+                // 3. print the values to the console.
+        // 0. SETUP STUFF: connect our array values to the <canvas> and caluculate intial values
+            var canvas = document.getElementById("myCanvas"); //Identify the function plot area
+            var theContext = canvas.getContext("2d"); // context means the properties of the canvas element onto which all of our drawing takes place
+            var width = canvas.width; // get the width dimension of <canvas>
+            var height = canvas.height; // get the height dimension of <canvas>
+            var inputMin = Math.min(...list); // calculate the lowest value in the array (... is "spread syntax"; it expands the .min() method to each element of the array)
+            var inputMax = Math.max(...list); // the largest value in the array using same methodology...
+
+        // 1. SCALE: convert input values into <canvas> values, no matter its dimensions
+            var scale = (num, in_min, in_max, out_min, out_max) => { // create a scaler for input and new output ranges using an ARROW FUNCTION (shorter function syntax since ES6 (2015))
+                return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+            }
+            var myList = list.map(n => scale(n, inputMin, inputMax, 0, height)); // map input list onto new range of <canvas> values, collect inside a new list called myList
+            var myListLength = myList.length;
+            var offset = (1 / (myListLength - 1))* width; // calculate the distance between each point on the x-axis; divide the width dimension into EQUAL PARTS
+        // 2. GRAPH: draw lines between each value inside the <canvas> area
+            theContext.fillStyle = "#AAF5C6"; // find colors here: https://color.adobe.com/create/color-wheel
+            theContext.fillRect(0, 0, width, height); // fill rectangle with specified color value on the line above
+            theContext.strokeStyle = "black";
+            theContext.strokeRect(0, 0, width, height); // draw the bounding box
+            theContext.moveTo(0, myList[0]); // move the "drawing pen" to the 1st point to be drawn
+            theContext.beginPath(); // begin drawing! use the for loop below to draw a line between each value in the list!
+            for (let x = 0; x < myListLength; x++){
+                theContext.lineTo(x * offset, height - myList[x]); // myList[x] means each element of the array at index x (So, x = 0 means the 1st value in the array)
+            }
+            theContext.stroke();
+        // 3. PRINT: write array values to the webpage
+            console.log(list);
+    }
+    </script>
+
+</body>
+</html>
