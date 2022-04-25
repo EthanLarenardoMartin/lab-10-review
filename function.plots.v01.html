@@ -11,7 +11,7 @@
     <canvas id="myCanvas" width="750px" height="200px"  style="border: 1px solid gray;"></canvas>
 
     <script>
-        var sales = [0,  50, 74, 31, 47, 25, 30, 22, 75, 99, 45, 100];
+        var sales = [0, 50, 74, 31, 47, 25, 30, 22, 75, 99, 45, 100];
         var myArray = [];
 
         const pi = Math.PI; // this allows me to calculate Pi once, and store it in a "const"
@@ -20,12 +20,30 @@
             // var is a global variable, so it can be accessed anywhere in your program.
             // let is a local variable, and can only be accessed inside the BLOCK of code you're using it in (ex: squiggly brackets)
             // const is also a variable but is a constant, so it does not change.
-        for (let i =0; i< 100; i++) {
+        for (let i = 0; i < 100; i++) {
             //myArray.push(i)
-            myArray.push((1.33 *i) + 0);
+           // myArray.push((1.33 *i) + 0);
+           // myArray.push(Math.pow(i, 2));
+           //myArray((Math.cos(1)));
+           //myArray.push(Math.cos(Math.pow(i, 0.5)));
+           //myArray.push(Math.sin(i * 0.1));
+           //myArray.push(Math.random());
+           //myArray.push(Math.log10(i + 1) * (Math.random()));
+           myArray.push(Math.sin(i + 1) * Math.cos(i + 2) * Math.tan(i + 3) % Math.log10(i + 4));
     }
 
-    console.log(myArray);
+   // for (let i = 0; i < 200; i++){
+        //if (i % 3 == 0 && i % 5 == 0) {
+            //myArray.push(200);
+        //} else if (i % 3 == 0) {
+            //myArray.push(100);
+       // } else if (i % 5 == 0) {
+            //myArray.push(50);
+       // } else {
+            //myArray.push(0);
+       // }
+    //}
+    //console.log(myArray);
 
     graph(myArray);
 
